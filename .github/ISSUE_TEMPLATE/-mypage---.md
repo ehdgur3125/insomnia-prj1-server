@@ -1,7 +1,7 @@
 ---
 name: "[Mypage] /"
 about: To Do.
-title: ''
+title: "[Mypage] /"
 labels: Mypage
 assignees: ehdgur3125
 
