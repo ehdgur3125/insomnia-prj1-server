@@ -7,6 +7,7 @@ router.get('/items',controller.items);
 router.get('/items/:categoryId',controller.items);
 router.get('/item/:itemId',controller.item);
 router.get('/search',controller.search);
+router.get('/bestsellers',controller.bestSellers);
 
 router.post('/cart',controller.postCart);
 router.patch('/cart',controller.patchCart);

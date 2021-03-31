@@ -3,6 +3,7 @@ module.exports={
   items:require('./main/items'),
   item:require('./main/item'),
   search:require('./main/search'),
+  bestSellers:require('./main/bestSellers'),
 
   postCart:require('./cart/postCart'),
   patchCart:require('./cart/patchCart'),
