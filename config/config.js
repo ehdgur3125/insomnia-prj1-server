@@ -1,9 +1,13 @@
-{
+const dotenv=require("dotenv");
+dotenv.config();
+
+module.exports={
   "development": {
-    "username": "root",
-    "password": null,
+    "username": process.env.DBUSER,
+    "password": process.env.DBPW,
     "database": "database_development",
-    "host": "127.0.0.1",
+    "host": process.env.DBENDP,
+    "port": process.env.DBPORT,
     "dialect": "mysql"
   },
   "test": {

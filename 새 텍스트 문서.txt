@@ -1,0 +1,10 @@
+simpole version
+	user
+	item-option - 항목 지워지면 구매기록은 어떻게 처리할것인가
+	order - state - cart상태 => paid. cart상태는 일반적으로 하나.
+	order에 LineItem 여러개가 들어있는 형식(어떤주문에 어떤상품의옵션x갯수) : 
+
+framework7
+react-query
+formik,yup
+recoil

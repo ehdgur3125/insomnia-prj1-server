@@ -4,6 +4,9 @@ module.exports={
   item:require('./main/item'),
   search:require('./main/search'),
   bestSellers:require('./main/bestSellers'),
+  postLike:require('./main/postLike'),
+  deleteLike:require('./main/deleteLike'),
+  myLikes:require('./main/myLikes'),
 
   postCart:require('./cart/postCart'),
   patchCart:require('./cart/patchCart'),
