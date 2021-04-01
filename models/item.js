@@ -13,7 +13,7 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
       this.belongsToMany(models.User,{through:'Like'});
       this.belongsToMany(models.Category,{through:'CategoryItem'});
-      this.belongsTo(models.Option);
+      this.hasMany(models.Option,{foreignKey:'itemId',onDelete:"CASCADE"});
     }
   };
   Item.init({
