@@ -2,23 +2,25 @@ const models=require("../../models");
 module.exports=async(req,res)=>{
   try{
     const categories=await models.Category.findAll({
-      attributes:[[models.sequelize.fn('COUNT',model.Sequelize.col('id')),'quantity']],
+      attributes:['id','text'],
       include:[{
         model:models.Item,
-        attributes:['name']
-      }],
-      group:'id'
+        require:false,
+      }]
     });
+    console.log(categories);
     res.send({
       categories:categories.map(x=>{
         return {
-          name:x.Item.name,
-          quantity:x.quantity
+          id:x.id,
+          name:x.text,
+          quantity:x.Items.length
         };
       })
     });
   }
   catch(e){
+    console.log(e);
     res.status(400).send(e);
   }
 }

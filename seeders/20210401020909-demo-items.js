@@ -14,16 +14,24 @@ module.exports = {
     */
     await queryInterface.bulkInsert('Items',[{
       name: '상품1',
-      text:'테스트를 위한 더미 상품 1입니다.'
+      text:'테스트를 위한 더미 상품 1입니다.',
+      createdAt: new Date(),
+      updatedAt: new Date(),
     },{
       name: '상품2',
-      text:'테스트를 위한 더미 상품 1입니다.'
+      text:'테스트를 위한 더미 상품 2입니다.',
+      createdAt: new Date(),
+      updatedAt: new Date(),
     },{
       name: '상품3',
-      text:'테스트를 위한 더미 상품 1입니다.'
+      text:'테스트를 위한 더미 상품 3입니다.',
+      createdAt: new Date(),
+      updatedAt: new Date(),
     },{
       name: '상품4',
-      text:'테스트를 위한 더미 상품 1입니다.'
+      text:'테스트를 위한 더미 상품 4입니다.',
+      createdAt: new Date(),
+      updatedAt: new Date(),
     }]);
   },
 
@@ -34,6 +42,6 @@ module.exports = {
      * Example:
      * await queryInterface.bulkDelete('People', null, {});
      */
-    await queryInterface.bulkDelete('Item',null,{});
+    await queryInterface.bulkDelete('Items',null,{});
   }
 };

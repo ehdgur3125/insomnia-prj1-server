@@ -5,7 +5,7 @@ module.exports={
   "development": {
     "username": process.env.DBUSER,
     "password": process.env.DBPW,
-    "database": "database_development",
+    "database": "ins_dev",
     "host": process.env.DBENDP,
     "port": process.env.DBPORT,
     "dialect": "mysql"
