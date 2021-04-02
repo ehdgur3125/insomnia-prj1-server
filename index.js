@@ -2,6 +2,8 @@ const express=require('express');
 const cookieParser=require('cookie-parser');
 const cors=require('cors');
 const router=require('./routes');
+const dotenv=require("dotenv");
+dotenv.config();
 
 const app=express();
 const port=4000;

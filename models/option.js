@@ -11,8 +11,8 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      this.hasMany(models.Item,{foreignKey:'itemId',onDelete:"CASCADE"});
-      this.belongsTo(models.ListItem);
+      this.belongsTo(models.Item);
+      this.hasMany(models.ListItem,{foreignKey:'optionId'});
     }
   };
   Option.init({
