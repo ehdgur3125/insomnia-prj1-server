@@ -7,7 +7,6 @@ module.exports=async(req,res)=>{
     res.status(400).send('항목이 부족합니다.');
     return;
   }
-  console.log(req.body);
   const hashed= passwordHash.generate(req.body.password);
   try{
     const [user, created]=await models.User.findOrCreate({

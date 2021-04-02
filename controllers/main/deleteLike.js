@@ -4,10 +4,10 @@ const {getId}=require('../modules');
 module.exports=async(req,res)=>{
   try{
     const userId=getId(req);
-    await models.Like.delete({
+    await models.Like.destroy({
       where:{
         userId,
-        itemId
+        itemId:req.body.itemId
       }
     });
     res.send('success');
