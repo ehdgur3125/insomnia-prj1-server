@@ -16,11 +16,11 @@ module.exports=async(req,res)=>{
         state:"inCart"
       }
     });
-    const [,cart]=await promiseCart;
+    const [cart,]=await promiseCart;
     if(!cart || Object.keys(cart).length===0) throw "unpredicted error";
     const option=await promiseOption;
     if(!option || Object.keys(option).length===0) throw "no such option";
-    const [created,]=await models.ListItem.findOrCreated({
+    const [,created]=await models.ListItem.findOrCreated({
       where:{
         orderId:cart.id,
         optionId:req.body.optionId

@@ -4,7 +4,7 @@ const {getId}=require('../modules');
 module.exports=async(req,res)=>{
   try{
     const userId=getId(req);
-    const [created,]=await models.Like.findOrCreate({
+    const [,created]=await models.Like.findOrCreate({
       where:{
         userId,
         itemId

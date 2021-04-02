@@ -10,7 +10,7 @@ module.exports=async(req,res)=>{
     res.send(user);
   }
   catch(e){
+    console.log(e);
     res.status(400).send(e);
   }
-  res.send('dummy');
 }
