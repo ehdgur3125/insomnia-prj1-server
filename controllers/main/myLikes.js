@@ -4,13 +4,17 @@ const {getId}=require('../modules');
 module.exports=async(req,res)=>{
   try{
     const userId=getId(req);
-    const user=await models.User.findByPk(userId,{
-      attributes:['email','address','phone']
+    const myLikes=await models.User.findByPk(userId,{
+      include:{
+        model:models.Item,
+        attributes:['name']
+      }
+    });    
+    res.send({
+      items:myLikes.map(x=>x.Item.name)
     });
-    res.send(user);
   }
   catch(e){
     res.status(400).send(e);
   }
-  res.send('dummy');
 }

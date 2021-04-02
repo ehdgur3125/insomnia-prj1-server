@@ -4,16 +4,13 @@ const {getId}=require('../modules');
 module.exports=async(req,res)=>{
   try{
     const userId=getId(req);
-    const orders=await models.Order.findAll({
+    await models.Like.delete({
       where:{
         userId,
-        state:{
-          [models.Sequelize.Op.ne]:'inCart'
-        }
-      },
-      attributes:["state","id","createdAt"] //price 추가해야함
+        itemId
+      }
     });
-    res.send(orders);
+    res.send('success');
   }
   catch(e){
     res.status(400).send(e);
