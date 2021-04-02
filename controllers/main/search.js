@@ -6,17 +6,17 @@ module.exports=async(req,res)=>{
       [models.Sequelize.Op.or]:[
         {
           name:{
-            [models.Sequelize.Op.like]: `%${req.query}%`
+            [models.Sequelize.Op.like]: `%${req.query.keyword}%`
           }
         },
         {
           text:{
-            [models.Sequelize.Op.like]: `%${req.query}%`
+            [models.Sequelize.Op.like]: `%${req.query.keyword}%`
           }
         }
       ]
     },
     include:models.Option
   })
-  res.send('dummy');
+  res.send(items);
 }
