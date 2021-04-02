@@ -4,11 +4,12 @@ const passwordHash=require('password-hash');
 
 module.exports=async(req,res)=>{
   try{
-    const user=await user.findOne({
+    const user=await models.User.findOne({
       where:{
         username:req.body.username
       }
     });
+    console.log(user);
     if(!user || Object.keys(user).length===0) throw 'no such user';
     const verify=passwordHash.verify(req.body.password,user.password);
     if(!verify) throw "wrong password";
@@ -26,6 +27,7 @@ module.exports=async(req,res)=>{
     res.send({accessToken});
   }
   catch(e){
+    console.log(e);
     res.status(400).send(e);
   }
 }
