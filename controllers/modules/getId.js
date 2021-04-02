@@ -6,7 +6,7 @@ module.exports=(req)=>{
     throw 'not authorized';
   }
   try{
-    const {userId}=jwt.verify(auth.split(' ')[1].process.env.ACCSALT);
+    const {userId}=jwt.verify(auth.split(' ')[1],process.env.ACCSALT);
     return userId;
   }
   catch(e){

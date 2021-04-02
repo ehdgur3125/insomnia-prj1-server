@@ -10,7 +10,7 @@ module.exports=async(req,res)=>{
   console.log(req.body);
   const hashed= passwordHash.generate(req.body.password);
   try{
-    const [created, user]=await models.User.findOrCreate({
+    const [user, created]=await models.User.findOrCreate({
       where:{
         [models.Sequelize.Op.or]:[{
           username:req.body.username
@@ -26,7 +26,6 @@ module.exports=async(req,res)=>{
         address: req.body.address
       }
     });
-    /*
     if(!created){
       if(user.username===req.body.username){
         res.status(400).send('이미 가입된 이름입니다.');
@@ -36,11 +35,10 @@ module.exports=async(req,res)=>{
         res.status(400).send('이미 가입된 이메일입니다.');
         return;
       }
-    }*/
+    }
     res.send('success');
   }
   catch(e){
-    console.log(e);
     res.status(400).send(e);
   }
 }

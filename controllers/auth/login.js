@@ -9,7 +9,6 @@ module.exports=async(req,res)=>{
         username:req.body.username
       }
     });
-    console.log(user);
     if(!user || Object.keys(user).length===0) throw 'no such user';
     const verify=passwordHash.verify(req.body.password,user.password);
     if(!verify) throw "wrong password";
@@ -27,7 +26,6 @@ module.exports=async(req,res)=>{
     res.send({accessToken});
   }
   catch(e){
-    console.log(e);
     res.status(400).send(e);
   }
 }

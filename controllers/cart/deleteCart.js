@@ -4,7 +4,7 @@ const {getId}=require('../modules');
 module.exports=async(req,res)=>{
   try{
     const userId=getId(req);
-    const [,cart]=await models.Order.findOrCreate({
+    const cart=await models.Order.findOne({
       where:{
         userId:userId,
         state:"inCart"
