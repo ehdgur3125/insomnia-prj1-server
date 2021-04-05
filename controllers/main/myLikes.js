@@ -7,23 +7,41 @@ module.exports=async(req,res)=>{
     const myLikes=await models.User.findByPk(userId,{
       include:{
         model:models.Item,
-        attributes:['id','name',
-        [models.Sequelize.literal(`(select count(*) from Likes where Likes.itemId=Items.id)`),'likes'],
-        [models.Sequelize.literal(`(select sum(quantity) from ListItems join Options on ListItems.optionId=Options.id where Options.itemId=Items.id)`),'purchases']
-      ]}
+        attributes:['id','name'//,
+          //[models.Sequelize.literal(`(select count(*) from Likes where Likes.itemId=Items.id)`),'likes'],
+          //[models.Sequelize.literal(`(select sum(quantity) from ListItems join Options on ListItems.optionId=Options.id where Options.itemId=Items.id)`),'purchases']
+        ],
+        include:[
+          {
+            model:models.User,
+            attributes:['id'],
+            require:false
+          },
+          {
+            model:models.Option,
+            include:{
+              model:models.ListItem,
+              attributes:['quantity']
+            }
+          }
+        ]
+      }
     });    
     res.send({
-      items:myLikes.Items.map(x=>{
+      items:myLikes.Items.map(item=>{
         return {
-          itemId:x.id,
-          name:x.name,
-          likes:x.dataValues.likes,
-          purchases:x.dataValues.purchases
+          itemId:item.id,
+          name:item.name,
+          likes:item.Users.length,
+          purchases:item.Options.reduce((acc1,option)=>
+            acc1+option.ListItems.reduce((acc2,listItem)=>
+              acc2+listItem.quantity,0),0)
         };
       })
     });
   }
   catch(e){
+    console.log(e);
     res.status(400).send(e);
   }
 }
