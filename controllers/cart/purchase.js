@@ -4,7 +4,13 @@ const {getId}=require('../modules');
 module.exports=async(req,res)=>{
   try{
     const userId=getId(req);
-    if(!req.body.address||!req.body.phone||!req.body.account) throw "more informations necessary";
+    let {address,phone,account}=req.body;
+    if(!address||!phone||!account){
+      const user=models.User.findByPk(userId);
+      address=address||user.address;
+      phone=phone||user.phone;
+      if(!account) throw "more informations necessary";
+    }
     const order=await models.Order.findOne({
       where:{
         state:'inCart',
