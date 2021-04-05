@@ -7,6 +7,7 @@ module.exports={
   deleteLike:require('./main/deleteLike'),
   myLikes:require('./main/myLikes'),
 
+  getCart:require('./cart/getCart'),
   postCart:require('./cart/postCart'),
   patchCart:require('./cart/patchCart'),
   deleteCart:require('./cart/deleteCart'),

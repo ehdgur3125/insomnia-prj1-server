@@ -7,11 +7,20 @@ module.exports=async(req,res)=>{
     const myLikes=await models.User.findByPk(userId,{
       include:{
         model:models.Item,
-        attributes:['name']
-      }
+        attributes:['id','name',
+        [models.Sequelize.literal(`(select count(*) from Likes where Likes.itemId=Items.id)`),'likes'],
+        [models.Sequelize.literal(`(select sum(quantity) from ListItems join Options on ListItems.optionId=Options.id where Options.itemId=Items.id)`),'purchases']
+      ]}
     });    
     res.send({
-      items:myLikes.map(x=>x.Item.name)
+      items:myLikes.Items.map(x=>{
+        return {
+          itemId:x.id,
+          name:x.name,
+          likes:x.dataValues.likes,
+          purchases:x.dataValues.purchases
+        };
+      })
     });
   }
   catch(e){

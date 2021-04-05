@@ -4,21 +4,23 @@ const {getId}=require('../modules');
 module.exports=async(req,res)=>{
   try{
     const userId=getId(req);
-    const [,cart]=await models.Order.findOrCreate({
+    const cart=await models.Order.findOne({
       where:{
         userId:userId,
         state:"inCart"
       }
     });
-    if(!cart || Object.keys(cart).length===0) throw "unpredicted error";
-    await models.ListItem.update({
-        quantity:req.body.quantity
-      },{
-      where:{
-        orderId:cart.id,
-        optionId:req.body.optionId
-      }
-    });
+    if(!cart || Object.keys(cart).length===0) throw "Not make cart yet";
+    else{
+      await models.ListItem.update({
+          quantity:req.body.quantity
+        },{
+        where:{
+          orderId:cart.id,
+          optionId:req.body.optionId
+        }
+      });
+    }
     res.send({
       message:'success'
     });

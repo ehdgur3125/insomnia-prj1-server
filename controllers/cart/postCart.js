@@ -16,16 +16,17 @@ module.exports=async(req,res)=>{
         state:"inCart"
       }
     });
-    const [,cart]=await promiseCart;
+    const [cart,]=await promiseCart;
     if(!cart || Object.keys(cart).length===0) throw "unpredicted error";
     const option=await promiseOption;
     if(!option || Object.keys(option).length===0) throw "no such option";
-    const [created,]=await models.ListItem.findOrCreated({
+    console.log(req.body.quantity, option.price);
+    const [,created]=await models.ListItem.findOrCreate({
       where:{
         orderId:cart.id,
         optionId:req.body.optionId
       },
-      default:{
+      defaults:{
         quantity:req.body.quantity,
         price:option.price,
         optionText:`${option.Item.name} ${option.text}`
@@ -37,6 +38,7 @@ module.exports=async(req,res)=>{
     });
   }
   catch(e){
+    console.log(e);
     res.status(400).send(e);
   }
 }

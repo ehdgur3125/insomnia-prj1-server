@@ -6,10 +6,12 @@ module.exports=async(req,res)=>{
     const userId=getId(req);
     const newData={};
     if(req.body.email) newData.email=req.body.email;
-    if(req.body.phone) newData.email=req.body.phone;
-    if(req.body.address) newData.email=req.body.address;
+    if(req.body.phone) newData.phone=req.body.phone;
+    if(req.body.address) newData.address=req.body.address;
     await models.User.update(newData,{
-      id:userId
+      where:{
+        id:userId
+      }
     });
     res.send('success');
   }
