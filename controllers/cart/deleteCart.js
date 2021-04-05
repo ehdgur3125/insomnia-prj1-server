@@ -11,7 +11,7 @@ module.exports=async(req,res)=>{
       }
     });
     if(!cart || Object.keys(cart).length===0) throw "unpredicted error";
-    await models.ListItem.delete({
+    await models.ListItem.destroy({
       where:{
         orderId:cart.id,
         optionId:req.params.optionId
@@ -22,6 +22,7 @@ module.exports=async(req,res)=>{
     });
   }
   catch(e){
+    console.log(e);
     res.status(400).send(e);
   }
 }
