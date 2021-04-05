@@ -11,9 +11,10 @@ router.post('/like',controller.postLike);
 router.delete('/like',controller.deleteLike);
 router.get('/mylikes',controller.myLikes);
 
+router.get('/cart',controller.getCart);
 router.post('/cart',controller.postCart);
 router.patch('/cart',controller.patchCart);
-router.delete('/cart',controller.deleteCart);
+router.delete('/cart/:optionId',controller.deleteCart);
 router.post('/purchase',controller.purchase);
 
 router.get('/myinfo',controller.getMyInfo);

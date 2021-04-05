@@ -4,7 +4,6 @@ const {getId}=require('../modules');
 module.exports=async(req,res)=>{
   try{
     const userId=getId(req);
-    if(!req.body.address||!req.body.phone||!req.body.account) throw "more informations necessary";
     const order=await models.Order.findOne({
       where:{
         state:'inCart',
@@ -12,22 +11,22 @@ module.exports=async(req,res)=>{
       },
       attributes:[["id","orderId"]],
       include:{
-        model:models.ListItem
+        model:models.ListItem,
+        include:models.Option
       }
     });
-    await models.Order.update({
-      state:'payed',
-      address:req.body.address,
-      phone:req.body.phone,
-      account:req.body.account
-    },{
-      where:{
-        userId:userId,
-        state:'inCart'
-      }
-    });
+    console.log(order);
     res.send({
       orderId:order.orderId,
+      listItems:order.ListItems.map(listItem=>{
+        return {
+          optionId:listItem.optionId,
+          quantity:listItem.quantity,
+          optionText:listItem.optionText,
+          price:listItem.price,
+          itemId:listItem.Option.itemId
+        }
+      }),
       total:order.ListItems.reduce((acc,listItem)=>acc+listItem.quantity*listItem.price,0)
     });
   }
