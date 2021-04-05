@@ -4,7 +4,7 @@ const {getId}=require('../modules');
 module.exports=async(req,res)=>{
   try{
     const userId=getId(req);
-    const order=await models.Order.findOne({
+    const order=await models.Order.findOrCreate({
       where:{
         state:'inCart',
         userId
@@ -15,7 +15,6 @@ module.exports=async(req,res)=>{
         include:models.Option
       }
     });
-    console.log(order);
     res.send({
       orderId:order.orderId,
       listItems:order.ListItems.map(listItem=>{
