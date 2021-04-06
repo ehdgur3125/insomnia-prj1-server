@@ -4,29 +4,32 @@ const {getId}=require('../modules');
 module.exports=async(req,res)=>{
   try{
     const userId=getId(req);
-    const order=await models.Order.findOrCreate({
+    const [order,_]=await models.Order.findOrCreate({
       where:{
         state:'inCart',
         userId
       },
-      attributes:[["id","orderId"]],
+      attributes:["id"],
       include:{
         model:models.ListItem,
         include:models.Option
-      }
+      },
+      order:[[models.ListItem,models.Option,"itemId",'asc']]
     });
     res.send({
-      orderId:order.orderId,
-      listItems:order.ListItems.map(listItem=>{
-        return {
-          optionId:listItem.optionId,
-          quantity:listItem.quantity,
-          optionText:listItem.optionText,
-          price:listItem.price,
-          itemId:listItem.Option.itemId
-        }
-      }),
-      total:order.ListItems.reduce((acc,listItem)=>acc+listItem.quantity*listItem.price,0)
+      data:{
+        orderId:order.id,
+        listItems:order.ListItems.map(listItem=>{
+          return {
+            optionId:listItem.optionId,
+            quantity:listItem.quantity,
+            optionText:listItem.optionText,
+            price:listItem.price,
+            itemId:listItem.Option.itemId
+          }
+        }),
+        total:order.ListItems.reduce((acc,listItem)=>acc+listItem.quantity*listItem.price,0)
+      }
     });
   }
   catch(e){

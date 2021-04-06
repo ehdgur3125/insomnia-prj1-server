@@ -50,10 +50,8 @@ module.exports=async(req,res)=>{
     });
     res.cookie('refreshToken',refreshToken);
     res.send({
-      data:{
-        token:accessToken,
-        csrf:null
-      }
+      token:accessToken,
+      csrf:null
     });
   }
   catch(e){
