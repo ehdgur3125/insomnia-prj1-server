@@ -8,7 +8,7 @@ router.get('/items/:categoryId',controller.items);
 router.get('/item/:itemId',controller.item);
 router.get('/search',controller.search);
 router.post('/like',controller.postLike);
-router.delete('/like',controller.deleteLike);
+router.delete('/like/:itemId',controller.deleteLike);
 router.get('/mylikes',controller.myLikes);
 
 router.get('/cart',controller.getCart);

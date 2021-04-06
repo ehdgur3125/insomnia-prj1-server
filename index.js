@@ -6,13 +6,13 @@ const dotenv=require("dotenv");
 dotenv.config();
 
 const app=express();
-const port=4000;
+const port=3000;
 
 app.use(express.json());
 app.use(express.urlencoded({extended:false}));
 
 const corsed=cors({
-  origin:"localhost:3000",
+  origin:"http://localhost:8080",
   method:['GET','POST','UPDATE','DELETE','OPTION'],
   credentials:true
 });

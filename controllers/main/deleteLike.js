@@ -7,7 +7,7 @@ module.exports=async(req,res)=>{
     await models.Like.destroy({
       where:{
         userId,
-        itemId:req.body.itemId
+        itemId:req.params.itemId
       }
     });
     res.send('success');
