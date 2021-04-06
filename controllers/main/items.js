@@ -18,32 +18,27 @@ module.exports=async(req,res)=>{
       }
     });
     const items=await models.Item.findAll({
-      attributes:[
-        ["id","itemId"],
-        "name",
-      ],
-      include
+      attributes:["id","name"],
+      include,
+      order:[['id','asc']]
     });
-    console.log(items);
     res.send({
-      data:{
-        items:items.map(x=>{
-          const [maxPrice,minPrice]=x.Options.reduce((acc,y)=>{
-            return [Math.max(acc[0],y.price),Math.min(acc[1],y.price)]
-          },[x.Options[0].price,x.Options[0].price]);
-          const purchases=x.Options.reduce((acc,option)=>{
-            return acc+=option.ListItems.reduce((acc2,list)=>acc2+list.quantity,0);
-          },0);
-          return {
-            itemId:x.id,
-            name:x.name,
-            likes:x.Users.length,
-            purchases,
-            maxPrice,
-            minPrice
-          }
-        })
-      }
+      items:items.map(x=>{
+        const [maxPrice,minPrice]=x.Options.reduce((acc,y)=>{
+          return [Math.max(acc[0],y.price),Math.min(acc[1],y.price)]
+        },[x.Options[0].price,x.Options[0].price]);
+        const purchases=x.Options.reduce((acc,option)=>{
+          return acc+=option.ListItems.reduce((acc2,list)=>acc2+list.quantity,0);
+        },0);
+        return {
+          itemId:x.id,
+          name:x.name,
+          likes:x.Users.length,
+          purchases,
+          maxPrice,
+          minPrice
+        }
+      })
     });
   }
   catch(e){

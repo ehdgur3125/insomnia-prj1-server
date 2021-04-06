@@ -7,7 +7,7 @@ module.exports=async(req,res)=>{
     const [,created]=await models.Like.findOrCreate({
       where:{
         userId,
-        itemId:req.body.itemId
+        itemId:req.body.params.itemId
       }
     });
     if(!created) throw 'Already like';

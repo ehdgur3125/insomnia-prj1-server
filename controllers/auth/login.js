@@ -6,11 +6,11 @@ module.exports=async(req,res)=>{
   try{
     const user=await models.User.findOne({
       where:{
-        username:req.body.username
+        email:req.body.user.email
       }
     });
     if(!user || Object.keys(user).length===0) throw 'no such user';
-    const verify=passwordHash.verify(req.body.password,user.password);
+    const verify=passwordHash.verify(req.body.user.password,user.password);
     if(!verify) throw "wrong password";
     const accessToken=jwt.sign({
       userId:user.id
@@ -23,9 +23,13 @@ module.exports=async(req,res)=>{
       expiresIn : '12h'
     });
     res.cookie('refreshToken',refreshToken);
-    res.send({accessToken});
+    res.send({
+      token:accessToken,
+      csrf:null
+    });
   }
   catch(e){
+    console.log(e);
     res.status(400).send(e);
   }
 }

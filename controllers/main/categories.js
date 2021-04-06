@@ -8,7 +8,6 @@ module.exports=async(req,res)=>{
         require:false,
       }]
     });
-    console.log(categories);
     res.send({
       categories:categories.map(x=>{
         return {
