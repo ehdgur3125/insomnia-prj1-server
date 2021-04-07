@@ -42,6 +42,7 @@ module.exports=async(req,res)=>{
   }
   catch(e){
     console.log(e);
-    res.status(400).send(e);
+    if(e.name==='TokenExpiredError') res.status(401).send(e);
+    else res.status(400).send(e);
   }
 }

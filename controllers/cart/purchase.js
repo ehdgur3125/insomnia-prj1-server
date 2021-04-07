@@ -4,7 +4,7 @@ const {getId}=require('../modules');
 module.exports=async(req,res)=>{
   try{
     const userId=getId(req);
-    let {address,phone,account}=req.body;
+    let {address,phone,account}=req.body.params;
     if(!address||!phone||!account){
       const user=models.User.findByPk(userId);
       address=address||user.address;
@@ -39,6 +39,7 @@ module.exports=async(req,res)=>{
   }
   catch(e){
     console.log(e);
-    res.status(400).send(e);
+    if(e.name==='TokenExpiredError') res.status(401).send(e);
+    else res.status(400).send(e);
   }
 }
