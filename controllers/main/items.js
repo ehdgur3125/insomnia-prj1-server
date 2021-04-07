@@ -1,7 +1,6 @@
 const models=require('../../models');
 
 module.exports=async(req,res)=>{
-  //if(req.params.categoryId)
   try{
     const include=[{
       model:models.User,

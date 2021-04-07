@@ -14,26 +14,29 @@ module.exports=async(req,res)=>{
         model:models.ListItem,
         include:models.Option
       },
-      order:[[models.ListItem,models.Option,"itemId",'asc']]
+      order:[[models.ListItem,models.Option,"itemId",'asc'],[models.ListItem,'optionId','asc']]
     });
     res.send({
       data:{
         orderId:order.id,
-        listItems:order.ListItems.map(listItem=>{
-          return {
-            optionId:listItem.optionId,
-            quantity:listItem.quantity,
-            optionText:listItem.optionText,
-            price:listItem.price,
-            itemId:listItem.Option.itemId
-          }
-        }),
-        total:order.ListItems.reduce((acc,listItem)=>acc+listItem.quantity*listItem.price,0)
+        listItems:(order.ListItems)
+          ?order.ListItems.map(listItem=>{
+            return {
+              optionId:listItem.optionId,
+              quantity:listItem.quantity,
+              optionText:listItem.optionText,
+              price:listItem.price,
+              itemId:listItem.Option.itemId
+            }
+          })
+          :[],
+        total:(order.ListItems)?order.ListItems.reduce((acc,listItem)=>acc+listItem.quantity*listItem.price,0):0
       }
     });
   }
   catch(e){
     console.log(e);
-    res.status(400).send(e);
+    if(e.name==='TokenExpiredError') res.status(401).send(e);
+    else res.status(400).send(e);
   }
 }

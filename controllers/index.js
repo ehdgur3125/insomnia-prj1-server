@@ -19,5 +19,8 @@ module.exports={
   patchMyInfo:require('./mypage/patchMyInfo'),
 
   login:require('./auth/login'),
-  signup:require('./auth/signup')
+  signup:require('./auth/signup'),
+  refresh:require('./auth/refresh'),
+
+  getImg:require('./main/getImg')
 }

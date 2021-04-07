@@ -24,5 +24,8 @@ router.patch('/myinfo',controller.patchMyInfo);
 
 router.post('/login',controller.login);
 router.post('/signup',controller.signup);
+router.post('/token',controller.refresh);
+
+router.get('/img/:item',controller.getImg);
 
 module.exports=router;

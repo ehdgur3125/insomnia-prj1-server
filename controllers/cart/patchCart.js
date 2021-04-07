@@ -13,11 +13,11 @@ module.exports=async(req,res)=>{
     if(!cart || Object.keys(cart).length===0) throw "Not make cart yet";
     else{
       await models.ListItem.update({
-          quantity:req.body.quantity
+          quantity:req.body.params.quantity
         },{
         where:{
           orderId:cart.id,
-          optionId:req.body.optionId
+          optionId:req.body.params.optionId
         }
       });
     }
@@ -26,6 +26,7 @@ module.exports=async(req,res)=>{
     });
   }
   catch(e){
-    res.status(400).send(e);
+    if(e.name==='TokenExpiredError') res.status(401).send(e);
+    else res.status(400).send(e);
   }
 }
