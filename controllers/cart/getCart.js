@@ -24,6 +24,7 @@ module.exports=async(req,res)=>{
             return {
               optionId:listItem.optionId,
               quantity:listItem.quantity,
+              itemName:listItem.itemName,
               optionText:listItem.optionText,
               price:listItem.price,
               itemId:listItem.Option.itemId

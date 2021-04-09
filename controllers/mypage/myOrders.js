@@ -20,7 +20,8 @@ module.exports=async(req,res)=>{
           orderId:order.id,
           state:order.state,
           createdAt:order.createdAt,
-          total:order.ListItems.reduce((acc,listItem)=>acc+listItem.price*listItem.quantity,0)
+          total:order.ListItems.reduce((acc,listItem)=>acc+listItem.price*listItem.quantity,0),
+          summary:order.ListItems.map(listItem=>`${listItem.itemName} ${listItem.optionText}x${listItem.quantity}`).join(', ')
         }
       })
     });

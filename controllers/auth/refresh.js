@@ -4,7 +4,7 @@ const passwordHash=require('password-hash');
 
 module.exports=async(req,res)=>{
   try{
-    const {userId}=jwt.verify(req.cookies.refreshToken.split(' ')[1],process.env.REFSALT);
+    const {userId}=jwt.verify(req.cookies.refreshToken,process.env.REFSALT);
     const accessToken=jwt.sign({
       userId
     },process.env.ACCSALT,{

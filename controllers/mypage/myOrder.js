@@ -21,6 +21,7 @@ module.exports=async(req,res)=>{
         listItems:order.ListItems.map(listItem=>{
           return {
             itemId:listItem.Option.itemId,
+            itemName:listItem.itemName,
             optionId:listItem.optionId,
             quantity:listItem.quantity,
             price:listItem.price,

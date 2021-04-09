@@ -24,6 +24,7 @@ module.exports=async(req,res)=>{
     });
     res.cookie('refreshToken',refreshToken);
     res.send({
+      refreshToken,
       token:accessToken,
       csrf:null
     });

@@ -10,6 +10,7 @@ module.exports = {
       },
       itemId: {
         type: Sequelize.INTEGER,
+        onDelete:'CASCADE',
         references:{
           model:{
             tableName:'Items',
@@ -19,6 +20,7 @@ module.exports = {
       },
       categoryId: {
         type: Sequelize.INTEGER,
+        onDelete:'CASCADE',
         references:{
           model:{
             tableName:'Categories',

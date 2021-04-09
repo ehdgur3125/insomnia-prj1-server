@@ -13,7 +13,7 @@ app.use(express.urlencoded({extended:false}));
 
 const corsed=cors({
   origin:"http://localhost:8080",
-  method:['GET','POST','UPDATE','DELETE','OPTION'],
+  method:['GET','POST','PATCH','DELETE','OPTION'],
   credentials:true
 });
 

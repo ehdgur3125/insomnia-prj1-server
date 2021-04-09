@@ -26,9 +26,10 @@ module.exports=async(req,res)=>{
         optionId:req.body.params.optionId
       },
       defaults:{
-        quantity:req.body.params.quantity||1,
+        quantity:req.body.params.quantity===undefined?1:req.body.params.quantity,
         price:option.price,
-        optionText:`${option.Item.name} ${option.text}`
+        itemName:option.Item.name,
+        optionText:option.text
       }
     });
     if(!created) throw 'already in cart';

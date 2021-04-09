@@ -10,6 +10,7 @@ module.exports = {
       },
       orderId: {
         type: Sequelize.INTEGER,
+        onDelete:'CASCADE',
         references:{
           model:{
             tableName:'Orders'
@@ -19,6 +20,7 @@ module.exports = {
       },
       optionId: {
         type: Sequelize.INTEGER,
+        onDelete:'SET NULL',
         references:{
           model:{
             tableName:'Options'
@@ -31,6 +33,9 @@ module.exports = {
       },
       price: {
         type: Sequelize.INTEGER
+      },
+      itemName: {
+        type: Sequelize.STRING
       },
       optionText: {
         type: Sequelize.STRING
