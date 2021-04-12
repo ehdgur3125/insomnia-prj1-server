@@ -31,19 +31,25 @@ module.exports = async (req, res) => {
     });
     res.send({
       items: myLikes.Items.map((item) => {
+        const [maxPrice, minPrice] = item.Options.reduce(
+          (acc, y) => {
+            return [Math.max(acc[0], y.price), Math.min(acc[1], y.price)];
+          },
+          [item.Options[0].price, item.Options[0].price]
+        );
+        const purchases = item.Options.reduce((acc, option) => {
+          return (acc += option.ListItems.reduce(
+            (acc2, list) => acc2 + list.quantity,
+            0
+          ));
+        }, 0);
         return {
           itemId: item.id,
           name: item.name,
           likes: item.Users.length,
-          purchases: item.Options.reduce(
-            (acc1, option) =>
-              acc1 +
-              option.ListItems.reduce(
-                (acc2, listItem) => acc2 + listItem.quantity,
-                0
-              ),
-            0
-          ),
+          purchases,
+          maxPrice,
+          minPrice,
         };
       }),
     });
