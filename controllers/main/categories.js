@@ -1,25 +1,26 @@
-const models=require("../../models");
-module.exports=async(req,res)=>{
-  try{
-    const categories=await models.Category.findAll({
-      attributes:['id','text'],
-      include:[{
-        model:models.Item,
-        require:false,
-      }]
+const models = require("../../models");
+module.exports = async (req, res) => {
+  try {
+    const categories = await models.Category.findAll({
+      attributes: ["id", "text"],
+      include: [
+        {
+          model: models.Item,
+          require: false,
+        },
+      ],
     });
     res.send({
-      categories:categories.map(x=>{
+      categories: categories.map((x) => {
         return {
-          id:x.id,
-          name:x.text,
-          quantity:x.Items.length
+          id: x.id,
+          name: x.text,
+          quantity: x.Items.length,
         };
-      })
+      }),
     });
-  }
-  catch(e){
+  } catch (e) {
     console.log(e);
     res.status(400).send(e);
   }
-}
+};

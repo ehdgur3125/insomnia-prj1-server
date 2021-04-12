@@ -1,3 +1,3 @@
-module.exports={
-  getId:require('./getId')
+module.exports = {
+  getId: require("./getId"),
 };
