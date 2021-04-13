@@ -54,13 +54,17 @@ module.exports = async (req, res) => {
         };
       }),
       reviews: item.Reviews,
-      grade: item.Reviews.length > 0 ? item.Reviews.reduce((acc, review) => acc + review.grade, 0) / item.Reviews.length : false,
+      grade: item.Reviews.length > 0
+        ? item.Reviews.reduce((acc, review) => acc + review.grade, 0) / item.Reviews.length
+        : false,
       likes: item.Users.length,
       liked: userId >= 0 ? item.Users.some((user) => user.id === userId) : false,
-      purchased: userId >= 0 ? item.Options.filter(option =>
-        option.ListItems.some(
-          listItem => listItem.Order.userId === userId && listItem.Order.state !== "incart"
-        )) : false,
+      purchased: userId >= 0
+        ? item.Options.filter(option =>
+          option.ListItems.some(
+            listItem => listItem.Order.userId === userId && listItem.Order.state !== "incart"
+          ))
+        : false,
       purchases: item.Options.reduce(
         (acc1, option) =>
           acc1 +
