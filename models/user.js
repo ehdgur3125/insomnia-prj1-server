@@ -15,6 +15,7 @@ module.exports = (sequelize, DataTypes) => {
         otherKey: "itemId",
       });
       this.hasMany(models.Order, { foreignKey: "userId" });
+      this.hasMany(models.Review, { foreignKey: "userId", onDelete: "SET NULL" });
     }
   }
   User.init(

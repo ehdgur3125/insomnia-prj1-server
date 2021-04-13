@@ -3,12 +3,7 @@ const models = require("../../models");
 module.exports = async (req, res) => {
   const userId = req.userId;
   if (userId < 0) throw "Invalid access";
-  const [, created] = await models.Like.findOrCreate({
-    where: {
-      userId,
-      itemId: req.body.params.itemId,
-    },
-  });
-  if (!created) throw "Already like";
+  const { itemId, grade, text } = req.body.params;
+  await models.Review.create({ userId, itemId, grade, text });
   res.send("success");
 };

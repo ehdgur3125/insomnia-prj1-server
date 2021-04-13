@@ -1,16 +1,10 @@
 const models = require("../../models");
-const { getId } = require("../modules");
 
 module.exports = async (req, res) => {
-  try {
-    const userId = getId(req);
-    const user = await models.User.findByPk(userId, {
-      attributes: ["email", "address", "phone"],
-    });
-    res.send(user);
-  } catch (e) {
-    console.log(e);
-    if (e.name === "TokenExpiredError") res.status(401).send(e);
-    else res.status(400).send(e);
-  }
+  const userId = req.userId;
+  if (userId < 0) throw "Invalid access";
+  const user = await models.User.findByPk(userId, {
+    attributes: ["email", "address", "phone"],
+  });
+  res.send(user);
 };

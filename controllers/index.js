@@ -5,6 +5,7 @@ module.exports = {
   search: require("./main/search"),
   postLike: require("./main/postLike"),
   deleteLike: require("./main/deleteLike"),
+  postReview: require("./main/postReview"),
   myLikes: require("./main/myLikes"),
 
   getCart: require("./cart/getCart"),

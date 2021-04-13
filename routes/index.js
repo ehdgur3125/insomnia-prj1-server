@@ -9,6 +9,7 @@ router.get("/item/:itemId", controller.item);
 router.get("/search", controller.search);
 router.post("/like", controller.postLike);
 router.delete("/like/:itemId", controller.deleteLike);
+router.post("/review", controller.postReview);
 router.get("/mylikes", controller.myLikes);
 
 router.get("/cart", controller.getCart);
