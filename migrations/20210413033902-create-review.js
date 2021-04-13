@@ -1,56 +1,50 @@
-"use strict";
+'use strict';
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.createTable("ListItems", {
+    await queryInterface.createTable('Reviews', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
-        type: Sequelize.INTEGER,
+        type: Sequelize.INTEGER
       },
-      orderId: {
+      itemId: {
         type: Sequelize.INTEGER,
         onDelete: "CASCADE",
         references: {
           model: {
-            tableName: "Orders",
+            tableName: "Items",
           },
           key: "id",
         },
       },
-      optionId: {
+      userId: {
         type: Sequelize.INTEGER,
         onDelete: "SET NULL",
         references: {
           model: {
-            tableName: "Options",
+            tableName: "Users",
           },
           key: "id",
         },
       },
-      quantity: {
-        type: Sequelize.INTEGER,
+      grade: {
+        type: Sequelize.INTEGER
       },
-      price: {
-        type: Sequelize.INTEGER,
-      },
-      itemName: {
-        type: Sequelize.STRING,
-      },
-      optionText: {
-        type: Sequelize.STRING,
+      text: {
+        type: Sequelize.STRING
       },
       createdAt: {
         allowNull: false,
-        type: Sequelize.DATE,
+        type: Sequelize.DATE
       },
       updatedAt: {
         allowNull: false,
-        type: Sequelize.DATE,
-      },
+        type: Sequelize.DATE
+      }
     });
   },
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.dropTable("ListItems");
-  },
+    await queryInterface.dropTable('Reviews');
+  }
 };
