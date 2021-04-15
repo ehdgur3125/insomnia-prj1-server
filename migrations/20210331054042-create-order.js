@@ -24,9 +24,6 @@ module.exports = {
       phone: {
         type: Sequelize.STRING,
       },
-      account: {
-        type: Sequelize.STRING,
-      },
       state: {
         type: Sequelize.STRING,
       },

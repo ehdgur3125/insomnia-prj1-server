@@ -18,6 +18,8 @@ router.post("/cart", controller.postCart);
 router.patch("/cart", controller.patchCart);
 router.delete("/cart/:optionId", controller.deleteCart);
 router.post("/purchase", controller.purchase);
+router.post("/purchase_approval", controller.purchaseApproval);
+router.post("/purchase_fail", controller.purchaseFail);
 
 router.get("/myinfo", controller.getMyInfo);
 router.get("/myorders", controller.myOrders);

@@ -14,6 +14,8 @@ module.exports = {
   patchCart: require("./cart/patchCart"),
   deleteCart: require("./cart/deleteCart"),
   purchase: require("./cart/purchase"),
+  purchaseApproval: require("./cart/purchaseApproval"),
+  purchaseFail: require("./cart/purchaseFail"),
 
   getMyInfo: require("./mypage/getMyInfo"),
   myOrders: require("./mypage/myOrders"),

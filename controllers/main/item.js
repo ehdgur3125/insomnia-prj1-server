@@ -70,7 +70,7 @@ module.exports = async (req, res) => {
         purchased: userId >= 0
           ? item.Options.some(option =>
             option.ListItems.some(
-              listItem => listItem.Order.userId === userId && listItem.Order.state !== "incart"
+              listItem => listItem.Order.userId === userId && listItem.Order.state !== "inCart"
             ))
           : false,
         reviewed: userId >= 0
