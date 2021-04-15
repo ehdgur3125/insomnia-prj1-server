@@ -1,12 +1,11 @@
-const models = require("../../models");
 const jwt = require("jsonwebtoken");
-const passwordHash = require("password-hash");
 
 module.exports = async (req, res) => {
   const { userId } = jwt.verify(
     req.cookies.refreshToken,
     process.env.REFSALT
   );
+  console.log(userId);
   const accessToken = jwt.sign(
     {
       userId,
@@ -25,7 +24,9 @@ module.exports = async (req, res) => {
       expiresIn: "12h",
     }
   );
-  res.cookie("refreshToken", refreshToken);
+  res.cookie("refreshToken", refreshToken, {
+    maxAge: 12 * 60 * 60 * 1000
+  });
   res.send({
     token: accessToken,
     csrf: null,

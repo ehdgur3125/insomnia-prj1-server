@@ -22,15 +22,6 @@ app.use(corsed);
 app.use(cookieParser());
 app.use(getId);
 app.use(router);
-app.use((req, res, next) => {
-  try {
-    next();
-  }
-  catch (e) {
-    console.log(e.name);
-    res.status(400).send(e);
-  }
-})
 app.options(corsed);
 
 app.get("/", (req, res) => {
