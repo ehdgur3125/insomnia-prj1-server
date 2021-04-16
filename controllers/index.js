@@ -6,6 +6,7 @@ module.exports = {
   postLike: require("./main/postLike"),
   deleteLike: require("./main/deleteLike"),
   postReview: require("./main/postReview"),
+  patchReview: require("./main/patchReview"),
   myLikes: require("./main/myLikes"),
 
   getCart: require("./cart/getCart"),
@@ -13,6 +14,8 @@ module.exports = {
   patchCart: require("./cart/patchCart"),
   deleteCart: require("./cart/deleteCart"),
   purchase: require("./cart/purchase"),
+  purchaseApproval: require("./cart/purchaseApproval"),
+  purchaseFail: require("./cart/purchaseFail"),
 
   getMyInfo: require("./mypage/getMyInfo"),
   myOrders: require("./mypage/myOrders"),
