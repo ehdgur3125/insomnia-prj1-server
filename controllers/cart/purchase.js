@@ -9,14 +9,11 @@ module.exports = async (req, res) => {
       const user = models.User.findByPk(userId);
       address = address || user.address;
       phone = phone || user.phone;
-      if (!account) throw "more informations necessary";
     }
     await models.Order.update(
       {
-        state: "paying",
-        address: req.body.address,
-        phone: req.body.phone,
-        account: req.body.account,
+        address,
+        phone,
       },
       {
         where: {

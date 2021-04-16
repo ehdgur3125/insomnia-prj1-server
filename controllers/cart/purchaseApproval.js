@@ -16,7 +16,7 @@ module.exports = async (req, res) => {
           model: models.ListItem,
         },
       });
-      if (order.state !== 'paying') throw 'not paying';
+      if (order.state !== 'inCart') throw 'not inCart Order';
       if (order.userId !== userId) throw 'Invalid access';
       if (order.ListItems.reduce(
         (acc, listItem) => acc + listItem.quantity * listItem.price,
@@ -57,16 +57,6 @@ module.exports = async (req, res) => {
     }
   } catch (e) {
     console.log(e);
-    await models.Order.update(
-      {
-        state: "inCart"
-      },
-      {
-        where: {
-          id: orderId.split('_')[2]
-        },
-      }
-    );
     res.status(400).send(e);
   }
 };

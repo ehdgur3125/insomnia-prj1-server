@@ -6,17 +6,6 @@ module.exports = async (req, res) => {
   try {
     const userId = req.userId;
     if (userId < 0) throw "Invalid access";
-    await models.Order.update(
-      {
-        state: "inCart",
-      },
-      {
-        where: {
-          userId: userId,
-          state: "paying",
-        },
-      }
-    );
     res.send({
       orderId: orderId,
     });

@@ -31,5 +31,6 @@ router.post("/signup", controller.signup);
 router.post("/token", controller.refresh);
 
 router.get("/img/:size/:item", controller.getImg);
+router.get("/img/:size/:item/:img", controller.getImg);
 
 module.exports = router;
