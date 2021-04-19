@@ -1,20 +1,19 @@
-const models=require('../../models');
-const {getId}=require('../modules');
+const models = require("../../models");
 
-module.exports=async(req,res)=>{
-  try{
-    const userId=getId(req);
-    const [,created]=await models.Like.findOrCreate({
-      where:{
+module.exports = async (req, res) => {
+  try {
+    const userId = req.userId;
+    if (userId < 0) throw "Invalid access";
+    const [, created] = await models.Like.findOrCreate({
+      where: {
         userId,
-        itemId:req.body.itemId
-      }
+        itemId: req.body.params.itemId,
+      },
     });
-    if(!created) throw 'Already like';
-    res.send('success');
+    if (!created) throw "Already like";
+    res.send("success");
+  } catch (e) {
+    console.log(e.name);
+    res.status(400).send(e.name);
   }
-  catch(e){
-    console.log(e);
-    res.status(400).send(e);
-  }
-}
+};

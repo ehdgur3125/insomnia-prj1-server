@@ -1,18 +1,18 @@
-const models=require('../../models');
-const {getId}=require('../modules');
+const models = require("../../models");
 
-module.exports=async(req,res)=>{
-  try{
-    const userId=getId(req);
+module.exports = async (req, res) => {
+  try {
+    const userId = req.userId;
+    if (userId < 0) throw "Invalid access";
     await models.Like.destroy({
-      where:{
+      where: {
         userId,
-        itemId:req.body.itemId
-      }
+        itemId: req.params.itemId,
+      },
     });
-    res.send('success');
+    res.send("success");
+  } catch (e) {
+    console.log(e.name);
+    res.status(400).send(e.name);
   }
-  catch(e){
-    res.status(400).send(e);
-  }
-}
+};

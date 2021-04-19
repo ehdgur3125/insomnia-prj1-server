@@ -1,44 +1,30 @@
-const models=require("../../models");
-const {getId}=require('../modules');
+const models = require("../../models");
 
-module.exports=async(req,res)=>{
-  try{
-    const userId=getId(req);
-    let {address,phone,account}=req.body;
-    if(!address||!phone||!account){
-      const user=models.User.findByPk(userId);
-      address=address||user.address;
-      phone=phone||user.phone;
-      if(!account) throw "more informations necessary";
+module.exports = async (req, res) => {
+  try {
+    const userId = req.userId;
+    if (userId < 0) throw "Invalid access";
+    let { address, phone, account } = req.body.params;
+    if (!address || !phone || !account) {
+      const user = models.User.findByPk(userId);
+      address = address || user.address;
+      phone = phone || user.phone;
     }
-    const order=await models.Order.findOne({
-      where:{
-        state:'inCart',
-        userId
+    await models.Order.update(
+      {
+        address,
+        phone,
       },
-      attributes:[["id","orderId"]],
-      include:{
-        model:models.ListItem
+      {
+        where: {
+          userId: userId,
+          state: "inCart",
+        },
       }
-    });
-    await models.Order.update({
-      state:'payed',
-      address:req.body.address,
-      phone:req.body.phone,
-      account:req.body.account
-    },{
-      where:{
-        userId:userId,
-        state:'inCart'
-      }
-    });
-    res.send({
-      orderId:order.orderId,
-      total:order.ListItems.reduce((acc,listItem)=>acc+listItem.quantity*listItem.price,0)
-    });
-  }
-  catch(e){
+    );
+    res.send("success");
+  } catch (e) {
     console.log(e);
     res.status(400).send(e);
   }
-}
+};

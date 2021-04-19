@@ -1,7 +1,5 @@
-'use strict';
-const {
-  Model
-} = require('sequelize');
+"use strict";
+const { Model } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
   class Item extends Model {
     /**
@@ -11,17 +9,35 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      this.belongsToMany(models.User,{through:'Like',foreignKey:'itemId',otherKey:'userId'});
-      this.belongsToMany(models.Category,{through:'CategoryItem',foreignKey:'itemId',otherKey:'categoryId'});
-      this.hasMany(models.Option,{foreignKey:'itemId',onDelete:"CASCADE"});
+      this.belongsToMany(models.User, {
+        through: "Like",
+        foreignKey: "itemId",
+        otherKey: "userId",
+      });
+      this.belongsToMany(models.Category, {
+        through: "CategoryItem",
+        foreignKey: "itemId",
+        otherKey: "categoryId",
+      });
+      this.hasMany(models.Option, {
+        foreignKey: "itemId",
+        onDelete: "CASCADE",
+      });
+      this.hasMany(models.Review, {
+        foreignKey: "itemId",
+        onDelete: "CASCADE"
+      });
     }
-  };
-  Item.init({
-    name: DataTypes.STRING,
-    text: DataTypes.STRING
-  }, {
-    sequelize,
-    modelName: 'Item',
-  });
+  }
+  Item.init(
+    {
+      name: DataTypes.STRING,
+      text: DataTypes.STRING,
+    },
+    {
+      sequelize,
+      modelName: "Item",
+    }
+  );
   return Item;
 };
