@@ -13,22 +13,22 @@ module.exports = {
      */
     await queryInterface.bulkInsert("Categories", [
       {
-        text: "분류1",
+        text: "식사",
         createdAt: new Date(),
         updatedAt: new Date(),
       },
       {
-        text: "분류2",
+        text: "라면",
         createdAt: new Date(),
         updatedAt: new Date(),
       },
       {
-        text: "분류3",
+        text: "간식",
         createdAt: new Date(),
         updatedAt: new Date(),
       },
       {
-        text: "분류4",
+        text: "분말차",
         createdAt: new Date(),
         updatedAt: new Date(),
       },

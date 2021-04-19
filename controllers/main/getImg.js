@@ -7,35 +7,57 @@ module.exports = (req, res) => {
         `${__dirname}/../../img/${req.params.size}/${req.params.item}.png`,
         (err, data) => {
           if (err) {
-            throw err;
+            fs.readFile(
+              `${__dirname}/../../img/${req.params.size}/${req.params.item}.jpg`,
+              (err, data) => {
+                if (err) {
+                  throw err;
+                }
+                res.set("Content-Security-Policy", "img-src *");
+                res.end(data);
+              }
+            );
+            return;
           }
           res.set("Content-Security-Policy", "img-src *");
-          res.type("image/png");
           res.end(data);
         }
       );
     }
     else {
-      if (req.params.img) {
+      if (req.params.size && req.params) {
+        if (req.params.img) {
+          fs.readFile(
+            `${__dirname}/../../img/${req.params.size}/${req.params.item}/${req.params.img}`,
+            (err, data) => {
+              if (err) {
+                throw err;
+              }
+              res.set("Content-Security-Policy", "img-src *");
+              res.end(data);
+            }
+          );
+        }
+        else {
+          fs.readdir(`${__dirname}/../../img/${req.params.size}/${req.params.item}`,
+            (err, data) => {
+              if (err) {
+                throw err;
+              }
+              res.send(data);
+            }
+          );
+        }
+      }
+      else {
         fs.readFile(
-          `${__dirname}/../../img/${req.params.size}/${req.params.item}/${req.params.img}`,
+          `${__dirname}/../../img/${req.params.img}`,
           (err, data) => {
             if (err) {
               throw err;
             }
             res.set("Content-Security-Policy", "img-src *");
-            res.type("image/png");
             res.end(data);
-          }
-        );
-      }
-      else {
-        fs.readdir(`${__dirname}/../../img/${req.params.size}/${req.params.item}`,
-          (err, data) => {
-            if (err) {
-              throw err;
-            }
-            res.send(data);
           }
         );
       }

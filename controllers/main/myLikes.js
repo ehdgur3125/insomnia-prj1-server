@@ -47,6 +47,7 @@ module.exports = async (req, res) => {
           itemId: item.id,
           name: item.name,
           likes: item.Users.length,
+          liked: (req.userId >= 0) ? item.Users.some(user => user.id === req.userId) : false,
           purchases,
           maxPrice,
           minPrice,
@@ -54,7 +55,7 @@ module.exports = async (req, res) => {
       }),
     });
   } catch (e) {
-    console.log(e.name);
-    res.status(400).send(e.name);
+    console.log(e);
+    res.status(400).send(e);
   }
 };

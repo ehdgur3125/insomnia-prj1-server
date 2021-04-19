@@ -32,7 +32,7 @@ module.exports = {
       },
       {
         itemId: 2,
-        categoryId: 3,
+        categoryId: 2,
         createdAt: new Date(),
         updatedAt: new Date(),
       },
@@ -43,19 +43,31 @@ module.exports = {
         updatedAt: new Date(),
       },
       {
-        itemId: 3,
+        itemId: 4,
+        categoryId: 1,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+      {
+        itemId: 4,
+        categoryId: 3,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+      {
+        itemId: 5,
+        categoryId: 3,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+      {
+        itemId: 5,
         categoryId: 4,
         createdAt: new Date(),
         updatedAt: new Date(),
       },
       {
-        itemId: 4,
-        categoryId: 2,
-        createdAt: new Date(),
-        updatedAt: new Date(),
-      },
-      {
-        itemId: 4,
+        itemId: 6,
         categoryId: 3,
         createdAt: new Date(),
         updatedAt: new Date(),
