@@ -43,6 +43,7 @@ module.exports = async (req, res) => {
           itemId: x.id,
           name: x.name,
           likes: x.Users.length,
+          liked: (req.userId >= 0) ? x.Users.some(user => user.id === req.userId) : false,
           purchases,
           maxPrice,
           minPrice,

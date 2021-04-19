@@ -30,6 +30,7 @@ router.post("/login", controller.login);
 router.post("/signup", controller.signup);
 router.post("/token", controller.refresh);
 
+router.get("/img/:img", controller.getImg);
 router.get("/img/:size/:item", controller.getImg);
 router.get("/img/:size/:item/:img", controller.getImg);
 
