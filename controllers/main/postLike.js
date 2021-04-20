@@ -13,7 +13,7 @@ module.exports = async (req, res) => {
     if (!created) throw "Already like";
     res.send("success");
   } catch (e) {
-    console.log(e.name);
-    res.status(400).send(e.name);
+    console.log(e);
+    res.status(400).send(e);
   }
 };

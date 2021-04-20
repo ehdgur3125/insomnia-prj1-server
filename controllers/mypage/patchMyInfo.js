@@ -5,8 +5,8 @@ module.exports = async (req, res) => {
     const userId = req.userId;
     if (userId < 0) throw "Invalid access";
     const newData = {};
-    if (req.body.phone) newData.phone = req.body.phone;
-    if (req.body.address) newData.address = req.body.address;
+    if (req.body.params.phone && /^\d{3}-\d{3,4}-\d{4}$/.test(req.body.params.phone)) newData.phone = req.body.params.phone;
+    if (req.body.params.address) newData.address = req.body.params.address;
     await models.User.update(newData, {
       where: {
         id: userId,
@@ -14,7 +14,7 @@ module.exports = async (req, res) => {
     });
     res.send("success");
   } catch (e) {
-    console.log(e.name);
-    res.status(400).send(e.name);
+    console.log(e);
+    res.status(400).send(e);
   }
 };

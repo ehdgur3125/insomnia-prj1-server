@@ -24,10 +24,7 @@ module.exports = async (req, res) => {
             (acc, listItem) => acc + listItem.price * listItem.quantity,
             0
           ),
-          summary: order.ListItems.map(
-            (listItem) =>
-              `${listItem.itemName} ${listItem.optionText}x${listItem.quantity}`
-          ).join(", "),
+          summary: `${order.ListItems[0].itemName}${order.ListItems.length > 1 ? ` 외 ${order.ListItems.length - 1}건` : ""}`
         };
       }),
     });

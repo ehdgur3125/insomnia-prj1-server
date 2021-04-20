@@ -4,7 +4,7 @@ const controller = require("../controllers");
 
 router.get("/categories", controller.categories);
 router.get("/items", controller.items);
-router.get("/items/:categoryId", controller.items);
+router.get("/items/:categoryName", controller.items);
 router.get("/item/:itemId", controller.item);
 router.get("/search", controller.search);
 router.post("/like", controller.postLike);

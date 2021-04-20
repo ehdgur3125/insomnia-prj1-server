@@ -38,7 +38,7 @@ module.exports = async (req, res) => {
       csrf: null,
     });
   } catch (e) {
-    console.log(e.name);
-    res.status(400).send(e.name);
+    console.log(e);
+    res.status(400).send(e);
   }
 };

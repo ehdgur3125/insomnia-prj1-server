@@ -49,7 +49,7 @@ module.exports = async (req, res) => {
       throw e;
     }
   } catch (e) {
-    console.log(e.name);
+    console.log(e);
     res.status(400).send(e);
   }
 };
