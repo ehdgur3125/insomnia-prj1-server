@@ -9,9 +9,9 @@ module.exports = async (req, res) => {
         email: req.body.user.email,
       },
     });
-    if (!user || Object.keys(user).length === 0) throw "no such user";
+    if (!user || Object.keys(user).length === 0) throw "잘못된 이메일 혹은 비밀번호입니다.";
     const verify = passwordHash.verify(req.body.user.password, user.password);
-    if (!verify) throw "wrong password";
+    if (!verify) throw "잘못된 이메일 혹은 비밀번호입니다.";
     const accessToken = jwt.sign(
       {
         userId: user.id,

@@ -1,4 +1,4 @@
-module.exports = async (req, res, items) => {
+module.exports = (req, res, items) => {
   res.send({
     items: items.map((item) => {
       const [maxPrice, minPrice] = item.Options.reduce(

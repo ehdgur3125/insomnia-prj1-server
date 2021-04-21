@@ -5,7 +5,7 @@ module.exports = async (req, res) => {
     const userId = req.userId;
     if (userId < 0) throw "Invalid access";
     const order = await models.Order.findByPk(req.params.orderId, {
-      attributes: ["userId", "state", "id", "createdAt"],
+      attributes: ["userId", "state", "id", "createdAt", "address", "phone"],
       include: {
         model: models.ListItem,
         include: models.Option,
@@ -17,6 +17,8 @@ module.exports = async (req, res) => {
         orderId: order.id,
         state: order.state,
         createdAt: order.createdAt,
+        address: order.address,
+        phone: order.phone,
         total: order.ListItems.reduce(
           (acc, listItem) => acc + listItem.price * listItem.quantity,
           0
