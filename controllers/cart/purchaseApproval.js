@@ -31,7 +31,6 @@ module.exports = async (req, res) => {
           "Content-Type": "application/json"
         }
       });
-      console.log(orderId.split('_')[2]);
       await models.Order.update(
         {
           state: "payed"

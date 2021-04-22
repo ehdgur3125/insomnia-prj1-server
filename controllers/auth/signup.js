@@ -14,6 +14,12 @@ module.exports = async (req, res) => {
       res.status(400).send("항목이 부족합니다.");
       return;
     }
+    if (!/^[A-Za-z]\w*@\w+.\w+$/.test(req.body.user.email)) {
+      throw '이메일의 양식을 확인해주세요';
+    }
+    if (!/^\d{3}-\d{3,4}-\d{4}$/.test(req.body.user.phone)) {
+      throw '전화번호의 양식을 확인해주세요';
+    }
     const hashed = passwordHash.generate(req.body.user.password);
     const [user, created] = await models.User.findOrCreate({
       where: {
@@ -57,7 +63,7 @@ module.exports = async (req, res) => {
     );
     const refreshToken = jwt.sign(
       {
-        id: user.id,
+        userId: user.id,
       },
       process.env.REFSALT,
       {
@@ -70,7 +76,7 @@ module.exports = async (req, res) => {
       csrf: null,
     });
   } catch (e) {
-    console.log(e.name);
-    res.status(400).send(e.name);
+    console.log(e);
+    res.status(400).send(e);
   }
 };

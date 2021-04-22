@@ -15,7 +15,7 @@ module.exports = {
      */
     await queryInterface.bulkInsert("Options", [
       {
-        text: "신라면 5입",
+        text: "5입",
         itemId: 1,
         price: 3380,
         state: "onSale",

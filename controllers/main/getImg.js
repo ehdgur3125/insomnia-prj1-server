@@ -31,7 +31,47 @@ module.exports = (req, res) => {
             `${__dirname}/../../img/${req.params.size}/${req.params.item}/${req.params.img}`,
             (err, data) => {
               if (err) {
-                throw err;
+                fs.readFile(
+                  `${__dirname}/../../img/${req.params.size}/${req.params.item}/${req.params.img}.jpg`,
+                  (err, data) => {
+                    if (err) {
+                      fs.readFile(
+                        `${__dirname}/../../img/${req.params.size}/${req.params.item}/${req.params.img}.png`,
+                        (err, data) => {
+                          if (err) {
+                            fs.readFile(
+                              `${__dirname}/../../img/small/${req.params.item}.png`,
+                              (err, data) => {
+                                if (err) {
+                                  fs.readFile(
+                                    `${__dirname}/../../img/small/${req.params.item}.jpg`,
+                                    (err, data) => {
+                                      if (err) {
+                                        throw err;
+                                      }
+                                      res.set("Content-Security-Policy", "img-src *");
+                                      res.end(data);
+                                    }
+                                  );
+                                  return;
+                                }
+                                res.set("Content-Security-Policy", "img-src *");
+                                res.end(data);
+                              }
+                            );
+                            return;
+                          }
+                          res.set("Content-Security-Policy", "img-src *");
+                          res.end(data);
+                        }
+                      );
+                      return;
+                    }
+                    res.set("Content-Security-Policy", "img-src *");
+                    res.end(data);
+                  }
+                );
+                return;
               }
               res.set("Content-Security-Policy", "img-src *");
               res.end(data);

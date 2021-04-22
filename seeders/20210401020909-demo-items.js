@@ -39,7 +39,7 @@ module.exports = {
       },
       {
         name: "율무차",
-        text: "코스트코에 가면 꼭 사야한다는 그 호두율무차",
+        text: "코스트코에 가면 꼭 사야한다는\n그 호두율무차",
         createdAt: new Date(),
         updatedAt: new Date(),
       },

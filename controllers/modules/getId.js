@@ -19,7 +19,7 @@ module.exports = (req, res, next) => {
       next();
       return;
     }
-    console.log(e.name);
+    console.log(e);
     res.status(400).send(e);
   }
 };
