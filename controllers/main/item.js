@@ -35,6 +35,10 @@ module.exports = async (req, res) => {
       order: [[models.Option, "id", "asc"], [models.Review, 'updatedAt', 'desc']],
     });
     const userId = req.userId;
+    const gradeDistribution = item.Reviews.reduce((acc, review) => {
+      acc[review.grade - 1]++;
+      return acc;
+    }, Array(5).fill(0));
     res.send({
       item: {
         itemId: item.id,
@@ -54,17 +58,11 @@ module.exports = async (req, res) => {
               : false,
           };
         }),
-        reviews: item.Reviews.map(review => {
-          return {
-            text: review.text,
-            grade: review.grade,
-            updatedAt: review.updatedAt,
-            username: review.User.username
-          };
-        }),
         grade: item.Reviews.length > 0
           ? item.Reviews.reduce((acc, review) => acc + review.grade, 0) / item.Reviews.length
           : false,
+        gradeDistribution,
+        reviewCount: item.Reviews.length,
         likes: item.Users.length,
         liked: userId >= 0 ? item.Users.some((user) => user.id === userId) : false,
         purchased: userId >= 0

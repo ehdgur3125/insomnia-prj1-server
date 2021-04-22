@@ -2,6 +2,7 @@ const jwt = require("jsonwebtoken");
 
 module.exports = async (req, res) => {
   try {
+    if (req.headers.origin !== "http://localhost:8080") throw 'not from insomenia'
     if (!req.cookies.refreshToken) throw 'no refresh token';
     const { userId } = jwt.verify(
       req.cookies.refreshToken,
