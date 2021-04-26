@@ -3,38 +3,38 @@ const { sendItems, findItems } = require("../modules");
 
 module.exports = async (req, res) => {
   try {
-    const items = await findItems(
-      [
+    const { begin, limit, keyword } = req.query;
+    const include = [
+      {
+        model: models.Category,
+        require: false
+      }
+    ];
+    const where = {
+      [models.Sequelize.Op.or]: [
         {
-          model: models.Category,
-          require: false
+          name: {
+            [models.Sequelize.Op.like]: `%${keyword}%`,
+          },
+        },
+        {
+          text: {
+            [models.Sequelize.Op.like]: `%${keyword}%`,
+          },
+        },
+        {
+          "$Categories.text$": {
+            [models.Sequelize.Op.like]: `%${keyword}%`,
+          },
+        },
+        {
+          "$Options.text$": {
+            [models.Sequelize.Op.like]: `%${keyword}%`,
+          },
         }
       ],
-      {
-        [models.Sequelize.Op.or]: [
-          {
-            name: {
-              [models.Sequelize.Op.like]: `%${req.query.keyword}%`,
-            },
-          },
-          {
-            text: {
-              [models.Sequelize.Op.like]: `%${req.query.keyword}%`,
-            },
-          },
-          {
-            "$Categories.text$": {
-              [models.Sequelize.Op.like]: `%${req.query.keyword}%`,
-            },
-          },
-          {
-            "$Options.text$": {
-              [models.Sequelize.Op.like]: `%${req.query.keyword}%`,
-            },
-          }
-        ],
-      }
-    );
+    };
+    const items = await findItems(undefined, undefined, include, where);
     sendItems(req, res, items);
   } catch (e) {
     console.log(e);

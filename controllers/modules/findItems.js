@@ -1,6 +1,6 @@
 const models = require("../../models");
 
-module.exports = async (include = [], where = undefined) => {
+module.exports = async (begin, limit, include = [], where = undefined) => {
   try {
     include.push(...[
       {
@@ -21,6 +21,8 @@ module.exports = async (include = [], where = undefined) => {
       where,
       include,
       order: [["id", "asc"]],
+      offset: begin && Number(begin),
+      limit: limit && Number(limit)
     });
     return items;
   } catch (e) {
