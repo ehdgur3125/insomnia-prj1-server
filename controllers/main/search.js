@@ -3,7 +3,7 @@ const { sendItems, findItems } = require("../modules");
 
 module.exports = async (req, res) => {
   try {
-    const { keyword, begin, limit } = req.query;
+    const { begin, limit, keyword } = req.query;
     const include = [
       {
         model: models.Category,
@@ -34,7 +34,7 @@ module.exports = async (req, res) => {
         }
       ],
     };
-    const items = await findItems(begin, limit, include, where);
+    const items = await findItems(undefined, undefined, include, where);
     sendItems(req, res, items);
   } catch (e) {
     console.log(e);

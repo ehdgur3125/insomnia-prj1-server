@@ -21,8 +21,8 @@ module.exports = async (begin, limit, include = [], where = undefined) => {
       where,
       include,
       order: [["id", "asc"]],
-      offset: Number(begin),
-      limit: Number(limit)
+      offset: begin && Number(begin),
+      limit: limit && Number(limit)
     });
     return items;
   } catch (e) {
