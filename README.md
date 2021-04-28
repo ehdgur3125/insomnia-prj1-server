@@ -3,7 +3,7 @@
 client repo : https://github.com/ehdgur3125/insomnia-prj1-client
 
 ## Infinite Scroll
-상품 목록에서와 리뷰 목록에서 사용한 framework7의 infinite scroll 기능
+상품 목록에서와 리뷰 목록에서 한 페이지의 자료만 불러오고 아래로 스크롤을 내리면 추가로 자료를 불러옵니다.
 
 ![infinite_scroll](https://user-images.githubusercontent.com/55545331/116356014-a7fc6080-a835-11eb-8a83-4b01bdc53dd3.gif)
 
